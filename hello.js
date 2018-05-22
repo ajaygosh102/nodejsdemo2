@@ -1,4 +1,6 @@
 var restify = require('restify');
+const port = process.env.PORT || 3000
+
 
 function respond(req, res, next) {
   res.send('hello ' + req.params.name);
