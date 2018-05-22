@@ -1,18 +1,24 @@
-var restify = require('restify');
-const port = process.env.PORT || 3000
-
-
-function respond(req, res, next) {
-  res.send('hello ' + req.params.name);
-  next();
-}
-
-
-
-var server = restify.createServer();
-server.get('/hello/:name', respond);
-server.head('/hello/:name', respond);
-
-server.listen(port, function() {
-  console.log('Our app is running on http://localhost:' + port);
+let http = require('http'),
+ 
+// look for PORT environment variable, 
+// else look for CLI argument,
+// else use hard coded value for port 8080
+port = process.env.PORT || process.argv[2] || 8080;
+ 
+// create a simple server
+let server = http.createServer(function (req, res) {
+ 
+        res.writeHead(200, {
+            'Content-Type': 'text/plain'
+        });
+        res.write('hello heroku!', 'utf-8');
+        res.end();
+ 
+    });
+ 
+// listen on the port
+server.listen(port, function () {
+ 
+    console.log('app up on port: ' + port);
+ 
 });
